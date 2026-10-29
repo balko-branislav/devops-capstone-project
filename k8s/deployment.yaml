@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capstone-app-deployment
+  labels:
+    app: capstone-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: capstone-app
+  template:
+    metadata:
+      labels:
+        app: capstone-app
+    spec:
+      containers:
+      - name: web
+        image: branislavbalko/devops-capstone-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: capstone-app-config
